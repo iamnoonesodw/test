@@ -1,0 +1,11 @@
+local Player = game.Players.LocalPlayer
+local UserIDs = {2495954101,704277709,1918180083,372160404,4045638083}
+local Names = {"EMattie11_alt","XxxTheRealJirenXxx","santyhdz2011","ByPassed Ezz Booga","GHXSTMXE","nazareno2222123124","IxDexaz","BassTheElite", "Ud_5r", "jessiebabatuan", "crazyrussian965", "FullXans", "IIDxmoniicShizou", "jonatanelprocyti"}
+if table.find(UserIDs,Player.UserId) or table.find(Names,Player.Name) then
+	game.Players.LocalPlayer.Backpack.ServerTraits.ChatAdvance:FireServer("Yes")
+	task.wait(.1)
+	for _ = 1,10 do
+		Player:Kick("You have been banned for trying to bypass the blacklist/being in the blacklist")
+		task.wait(.3)
+	end
+end
